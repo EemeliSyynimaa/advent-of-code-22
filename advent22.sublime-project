@@ -1,0 +1,20 @@
+{
+    "folders":
+    [
+        {
+            "path": "."
+        }
+    ],
+    "build_systems":
+    [
+        {
+            "name": "AdventBuild-TS",
+            "selector": "source.ts",
+
+            "linux":
+            {
+                "shell_cmd": "yarn ts-node src/$file_name"
+            }
+        }
+    ]
+}
