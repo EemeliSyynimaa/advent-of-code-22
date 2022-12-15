@@ -1,3 +1,4 @@
-let hello = "world";
+var day_1 = require('./day_1');
 
-console.log(`Hello ${hello}!`);
+// Todo: make a selector for a specific day or something
+day_1.main();
