@@ -1,13 +1,13 @@
 import * as fs from 'node:fs';
 
-function priority_get(c : string)
+function priority_get(c : string) : number
 {
-    let code : number = c.charCodeAt(0);
+    const code : number = c.charCodeAt(0);
 
-    let minA : number = ('A').charCodeAt(0);
-    let maxA : number = ('Z').charCodeAt(0);
-    let minB : number = ('a').charCodeAt(0);
-    let maxB : number = ('z').charCodeAt(0);
+    const minA : number = ('A').charCodeAt(0);
+    const maxA : number = ('Z').charCodeAt(0);
+    const minB : number = ('a').charCodeAt(0);
+    const maxB : number = ('z').charCodeAt(0);
 
     if (code >= minA && code <= maxA)
     {
@@ -21,35 +21,36 @@ function priority_get(c : string)
     return 0;
 }
 
-function main()
+function main() : void
 {
-    let data = fs.readFileSync("data/3.txt", "utf8");
-    let values = data.split('\n');
+    const data = fs.readFileSync("data/3.txt", "utf8");
+    const values = data.split('\n');
 
     if (values.length)
     {
-        let priorityTotalA : number = 0;
-        let priorityTotalB : number = 0;
-        let rucksacks : string[] = [];
+        let priorityTotalA = 0;
+        let priorityTotalB = 0;
+        const rucksacks : string[] = [];
 
-        for (let value in values)
+        for (const value in values)
         {
-            let rucksack = values[value];
-            let compartmentSize = rucksack.length * 0.5;
-            let compartmentA = rucksack.slice(0, compartmentSize);
-            let compartmentB = rucksack.slice(compartmentSize, rucksack.length);
+            const rucksack = values[value];
+            const compartmentSize = rucksack.length * 0.5;
+            const compartmentA = rucksack.slice(0, compartmentSize);
+            const compartmentB = rucksack.slice(compartmentSize,
+                rucksack.length);
             let commonItem = '';
-            let commonPriority : number = 0;
+            let commonPriority = 0;
 
             labelFound : for (let i = 0; i < compartmentSize; i++)
             {
-                let charA = compartmentA.charAt(i);
+                const charA = compartmentA.charAt(i);
 
                 for (let j = 0; j < compartmentSize; j++)
                 {
-                    let charB = compartmentB.charAt(j);
+                    const charB = compartmentB.charAt(j);
 
-                    if (charA == charB)
+                    if (charA === charB)
                     {
                         commonItem = charA;
                         commonPriority = priority_get(commonItem);
@@ -65,27 +66,27 @@ function main()
 
             if (rucksacks.length === 3)
             {
-                let rucksackA : string = rucksacks[0];
-                let rucksackB : string = rucksacks[1];
-                let rucksackC : string = rucksacks[2];
-                let commonItem : string = '';
-                let commonPriority : number = 0;
+                const rucksackA : string = rucksacks[0];
+                const rucksackB : string = rucksacks[1];
+                const rucksackC : string = rucksacks[2];
+                let commonItem = '';
+                let commonPriority = 0;
 
                 labelFoundB : for (let i = 0; i < rucksackA.length; i++)
                 {
-                    let charA = rucksackA.charAt(i);
+                    const charA = rucksackA.charAt(i);
 
                     for (let j = 0; j < rucksackB.length; j++)
                     {
-                        let charB = rucksackB.charAt(j);
+                        const charB = rucksackB.charAt(j);
 
-                        if (charA == charB)
+                        if (charA === charB)
                         {
                             for (let k = 0; k < rucksackC.length; k++)
                             {
-                                let charC = rucksackC.charAt(k);
+                                const charC = rucksackC.charAt(k);
 
-                                if (charA == charC)
+                                if (charA === charC)
                                 {
                                     commonItem = charA;
                                     commonPriority = priority_get(commonItem);
@@ -98,11 +99,14 @@ function main()
                     }
                 }
 
-                console.log(`${rucksacks} => common item ${commonItem} and priority ${commonPriority}`);
+                console.log(`${rucksacks} => common item ${commonItem}` +
+                    `and priority ${commonPriority}`);
                 rucksacks.length = 0;
             }
 
-            console.log(`Rucksack ${rucksack} => ${compartmentA} ${compartmentB}, common item ${commonItem} and priority ${commonPriority}`);
+            console.log(`Rucksack ${rucksack} => ${compartmentA} ` +
+                `${compartmentB}, common item ${commonItem} and priority ` +
+                `${commonPriority}`);
         }
 
         // Problem a:

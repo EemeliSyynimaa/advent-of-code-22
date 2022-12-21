@@ -1,12 +1,12 @@
 import * as fs from 'node:fs';
 
-const ROCK : number  = 1;
-const PAPER : number  = 2;
-const SCISSORS : number  = 3;
+const ROCK  = 1;
+const PAPER  = 2;
+const SCISSORS  = 3;
 
-const LOSE : number = 0;
-const TIE : number = 3;
-const WIN: number = 6;
+const LOSE = 0;
+const TIE = 3;
+const WIN = 6;
 
 function hand_number(hand: string) : number
 {
@@ -23,24 +23,24 @@ function hand_number(hand: string) : number
         return SCISSORS;
     default:
         return 0;
-    };
+    }
 }
 
 function score_calculate_a(a: string, b: string) : number
 {
-    let score : number = 0;
-    let a_num = hand_number(a);
-    let b_num = hand_number(b);
+    let score = 0;
+    const numA = hand_number(a);
+    const numB = hand_number(b);
 
-    score += a_num;
+    score += numA;
 
-    if (a_num == b_num)
+    if (numA === numB)
     {
         score += TIE;
     }
-    else if ((a_num == ROCK && b_num == SCISSORS) ||
-        (a_num == SCISSORS && b_num == PAPER) ||
-        (a_num == PAPER && b_num == ROCK))
+    else if ((numA === ROCK && numB === SCISSORS) ||
+        (numA === SCISSORS && numB === PAPER) ||
+        (numA === PAPER && numB === ROCK))
     {
         score += WIN;
     }
@@ -80,19 +80,19 @@ function hand_better_get(hand: number) : number
 
 function score_calculate_b(a: string, b: string) : number
 {
-    let score : number = 0;
-    let a_num = hand_number(a);
+    let score = 0;
+    const numA = hand_number(a);
 
     switch (b)
     {
     case 'X':
-        score += hand_worse_get(a_num);
+        score += hand_worse_get(numA);
         break;
     case 'Y':
-        score += TIE + a_num;
+        score += TIE + numA;
         break;
     case 'Z':
-        score += WIN + hand_better_get(a_num);
+        score += WIN + hand_better_get(numA);
         break;
     default:
         break;
@@ -101,34 +101,34 @@ function score_calculate_b(a: string, b: string) : number
     return score;
 }
 
-function main()
+function main() : void
 {
-    let data = fs.readFileSync("data/2.txt", "utf8");
-    let values = data.split('\n');
+    const data = fs.readFileSync("data/2.txt", "utf8");
+    const values = data.split('\n');
 
     if (values.length)
     {
         console.log(values);
 
-        let score_a : number = 0;
-        let score_b : number = 0;
+        let scoreA = 0;
+        let scoreB = 0;
 
-        for (let value in values)
+        for (const value in values)
         {
-            if (values[value].length == 3)
+            if (values[value].length === 3)
             {
-                let [a, b] = values[value].split(' ');
+                const [a, b] = values[value].split(' ');
 
-                score_a += score_calculate_a(b, a);
-                score_b += score_calculate_b(a, b);
+                scoreA += score_calculate_a(b, a);
+                scoreB += score_calculate_b(a, b);
             }
         }
 
         // Problem a:
-        console.log(`Total score for problem A is ${score_a}`);
+        console.log(`Total score for problem A is ${scoreA}`);
 
         // Problem b:
-        console.log(`Total score for problem B is ${score_b}`);
+        console.log(`Total score for problem B is ${scoreB}`);
     }
     else
     {
