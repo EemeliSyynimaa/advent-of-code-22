@@ -1,22 +1,22 @@
 import * as fs from 'node:fs';
 
-function main()
+function main() : void
 {
-    let data = fs.readFileSync("data/1.txt", "utf8");
-    let values = data.split('\n');
+    const data = fs.readFileSync("data/1.txt", "utf8");
+    const values = data.split('\n');
 
     console.log(values);
 
     if (values.length)
     {
-        let totals: Array<number> = [];
-        let current : number = 0;
+        const totals: Array<number> = [];
+        let current = 0;
 
-        for (let i in values)
+        for (const i in values)
         {
-            let value = values[i];
+            const value = values[i];
 
-            if (value == '')
+            if (value === '')
             {
                 totals.push(current);
                 current = 0;
@@ -27,7 +27,7 @@ function main()
             }
         }
 
-        totals.sort((a, b) => { return b - a; });
+        totals.sort((a, b) => b - a);
 
         let total = 0;
 
