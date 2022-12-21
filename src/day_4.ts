@@ -1,25 +1,21 @@
-import * as fs from 'node:fs';
+import * as fs from "node:fs";
 
-function main() : void
-{
+function main(): void {
     const data = fs.readFileSync("data/4.txt", "utf8");
-    const values = data.split('\n');
+    const values = data.split("\n");
 
-    if (values.length)
-    {
+    if (values.length) {
         let totalA = 0;
         let totalB = 0;
 
-        for (const value in values)
-        {
-            const sections : string[] = values[value].split(',');
+        for (const value in values) {
+            const sections: string[] = values[value].split(",");
 
-            if (sections.length > 1)
-            {
+            if (sections.length > 1) {
                 console.log(sections);
 
-                const rangeA = sections[0].split('-');
-                const rangeB = sections[1].split('-');
+                const rangeA = sections[0].split("-");
+                const rangeB = sections[1].split("-");
 
                 const minA = Number(rangeA[0]);
                 const maxA = Number(rangeA[1]);
@@ -28,16 +24,18 @@ function main() : void
 
                 let includes = false;
 
-                if ((minA >= minB && maxA <= maxB) ||
-                    (minB >= minA && maxB <= maxA))
-                {
+                if (
+                    (minA >= minB && maxA <= maxB) ||
+                    (minB >= minA && maxB <= maxA)
+                ) {
                     includes = true;
                     totalA++;
                 }
 
-                if ((minA >= minB && minA <= maxB) ||
-                    (minB >= minA && minB <= maxA))
-                {
+                if (
+                    (minA >= minB && minA <= maxB) ||
+                    (minB >= minA && minB <= maxA)
+                ) {
                     includes = true;
                     totalB++;
                 }
@@ -49,9 +47,7 @@ function main() : void
 
         // Problem b:
         console.log(`Total overlapped sections for problem B is ${totalB}`);
-    }
-    else
-    {
+    } else {
         console.log("No values in file");
     }
 }

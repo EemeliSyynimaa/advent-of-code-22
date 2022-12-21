@@ -1,28 +1,22 @@
-import * as fs from 'node:fs';
+import * as fs from "node:fs";
 
-function main() : void
-{
+function main(): void {
     const data = fs.readFileSync("data/1.txt", "utf8");
-    const values = data.split('\n');
+    const values = data.split("\n");
 
     console.log(values);
 
-    if (values.length)
-    {
+    if (values.length) {
         const totals: Array<number> = [];
         let current = 0;
 
-        for (const i in values)
-        {
+        for (const i in values) {
             const value = values[i];
 
-            if (value === '')
-            {
+            if (value === "") {
                 totals.push(current);
                 current = 0;
-            }
-            else
-            {
+            } else {
                 current += Number(value);
             }
         }
@@ -31,8 +25,7 @@ function main() : void
 
         let total = 0;
 
-        for (let b = 0; b < 3; b++)
-        {
+        for (let b = 0; b < 3; b++) {
             total += totals[b];
         }
 
@@ -41,9 +34,7 @@ function main() : void
 
         // Problem b:
         console.log(`Largest three amounts: ${total}`);
-    }
-    else
-    {
+    } else {
         console.log("No values in file");
     }
 }
